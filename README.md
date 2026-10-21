@@ -1,42 +1,57 @@
 # Camel OS
 
-Camel OS is a hybrid operating system prototype that has two modes:
+Camel OS is the concept for a hybrid operating system that can switch between two full interfaces:
 
-- Android mode: mobile UI with an app grid and dock
-- Windows mode: desktop-style shell with Start menu and .exe-like apps
+- Android mode: a full mobile-style environment for touch-first use
+- Windows mode: a desktop environment that can run Windows-style executable apps
 
-This repo contains a lightweight frontend prototype as a starting point for the larger actual system design.
+This repo contains both:
 
-## Folder structure
+- a web prototype for the interface preview in `frontend/`
+- a low-level OS skeleton for the actual platform design in `boot/`, `kernel/`, and `include/`
 
-- `index.html` — app entry
-- `frontend/styles.css` — visual design for both modes
-- `frontend/app.js` — interactive mode switching and app launching logic
+## Folder layout
 
-## Run locally
+- `frontend/` — interactive web preview of the dual-mode UI
+- `boot/boot.asm` — x86 boot sector skeleton
+- `kernel/` — kernel entry and terminal stubs
+- `include/types.h` — base type definitions
+- `Makefile` — minimal build scaffold
 
-From the repo root:
+## The real plan
+
+The actual system should eventually include:
+
+- boot sector / bootloader
+- kernel initialization
+- protected mode startup
+- memory manager
+- filesystem and drivers
+- Android runtime layer
+- Windows compatibility layer
+- app launcher and mode switching
+
+## Run the web preview
 
 ```bash
+cd /path/to/camel-os
 python3 -m http.server 8000
 ```
 
-Then open:
+Open:
 
 ```text
 http://localhost:8000
 ```
 
-## The actual system vision
+## Build the low-level skeleton
 
-The real product concept is:
+```bash
+make
+```
 
-- Android side = full Android-style OS for a phone-sized device
-- Windows side = desktop shell that can run Windows-style exe programs and app windows
-- Shared base = the same system services, devices, file manager, and app layer
+This is intentionally a minimal starting point, not a complete OS yet.
 
-This frontend is just the working prototype and visual demonstration.
+## Notes
 
-## License
-
-MIT
+The frontend is just a proof-of-concept interface. The real Camel OS is the low-level system design that follows this boot/kernel skeleton.
