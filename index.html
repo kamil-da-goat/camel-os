@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camel OS</title>
+    <link rel="stylesheet" href="frontend/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="top-bar">
+        <div class="brand">Camel OS</div>
+        <div class="mode-switcher">
+          <button id="modeSwitch" class="mode-button" type="button">
+            Switch to Windows
+          </button>
+        </div>
+      </div>
+
+      <main id="osRoot" class="os-root android-mode" aria-live="polite">
+        <section class="android-ui">
+          <div class="android-statusbar">
+            <span>9:41</span>
+            <span>5G • 82%</span>
+          </div>
+
+          <div class="android-home">
+            <div class="android-wallpaper"></div>
+            <div class="android-app-grid" id="androidApps"></div>
+          </div>
+
+          <div class="android-dock" id="androidDock"></div>
+        </section>
+
+        <section class="windows-ui hidden">
+          <div class="windows-desktop" id="windowsDesktop">
+            <div class="desktop-shortcuts" id="windowsShortcuts"></div>
+            <div class="window-area" id="windowArea"></div>
+          </div>
+
+          <div class="windows-taskbar">
+            <div class="start-button" id="startButton">Start</div>
+            <div class="taskbar-apps" id="taskbarApps"></div>
+            <div class="system-tray">9:41</div>
+          </div>
+
+          <div class="start-menu hidden" id="startMenu">
+            <div class="start-menu-item" data-app="Notepad.exe">Notepad</div>
+            <div class="start-menu-item" data-app="Calc.exe">Calculator</div>
+            <div class="start-menu-item" data-app="Explorer.exe">Explorer</div>
+            <div class="start-menu-item" data-app="Browser.exe">Browser</div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="frontend/app.js"></script>
+  </body>
+</html>
