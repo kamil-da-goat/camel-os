@@ -1,19 +1,19 @@
 const androidApps = [
-  { name: 'Phone', icon: 'P', accent: '#6e8bc3' },
-  { name: 'Messages', icon: 'M', accent: '#c28354' },
-  { name: 'Camera', icon: 'C', accent: '#d3a15b' },
-  { name: 'Gallery', icon: 'G', accent: '#b56d4b' },
-  { name: 'Maps', icon: 'A', accent: '#7aa06a' },
-  { name: 'Music', icon: 'S', accent: '#946a86' },
-  { name: 'Store', icon: 'O', accent: '#4a7d86' },
-  { name: 'Settings', icon: 'S', accent: '#6f6e74' },
+  { name: 'Phone', shape: 'shape-phone', accent: '#6e8bc3' },
+  { name: 'Messages', shape: 'shape-messages', accent: '#c28354' },
+  { name: 'Camera', shape: 'shape-camera', accent: '#d3a15b' },
+  { name: 'Gallery', shape: 'shape-gallery', accent: '#b56d4b' },
+  { name: 'Maps', shape: 'shape-maps', accent: '#7aa06a' },
+  { name: 'Music', shape: 'shape-music', accent: '#946a86' },
+  { name: 'Store', shape: 'shape-store', accent: '#4a7d86' },
+  { name: 'Settings', shape: 'shape-settings', accent: '#6f6e74' },
 ];
 
 const windowsApps = [
-  { name: 'Notepad.exe', label: 'Notepad', icon: 'N' },
-  { name: 'Calc.exe', label: 'Calculator', icon: 'C' },
-  { name: 'Explorer.exe', label: 'Explorer', icon: 'E' },
-  { name: 'Browser.exe', label: 'Browser', icon: 'B' },
+  { name: 'Notepad.exe', label: 'Notepad', shape: 'shape-file', accent: '#8e6b4c' },
+  { name: 'Calc.exe', label: 'Calculator', shape: 'shape-calculator', accent: '#7b8e70' },
+  { name: 'Explorer.exe', label: 'Explorer', shape: 'shape-folder', accent: '#7a6d95' },
+  { name: 'Browser.exe', label: 'Browser', shape: 'shape-browser', accent: '#5f7f8e' },
 ];
 
 const state = {
@@ -40,7 +40,7 @@ function renderAndroidApps() {
     tile.type = 'button';
     tile.className = 'app-tile';
     tile.innerHTML = `
-      <div class="app-icon" style="background:${app.accent}">${app.icon}</div>
+      <div class="app-icon ${app.shape}" style="background:${app.accent}"></div>
       <span>${app.name}</span>
     `;
     tile.addEventListener('click', () => runAndroidApp(app.name));
@@ -50,7 +50,8 @@ function renderAndroidApps() {
       const dockApp = document.createElement('button');
       dockApp.type = 'button';
       dockApp.className = 'dock-app';
-      dockApp.innerHTML = app.icon;
+      dockApp.innerHTML = '';
+      dockApp.classList.add(app.shape);
       dockApp.style.background = app.accent;
       dockApp.addEventListener('click', () => runAndroidApp(app.name));
       androidDock.appendChild(dockApp);
@@ -65,7 +66,7 @@ function renderWindowsShortcuts() {
     shortcut.type = 'button';
     shortcut.className = 'shortcut';
     shortcut.innerHTML = `
-      <div class="shortcut-icon">${app.icon}</div>
+      <div class="shortcut-icon ${app.shape}"></div>
       <span>${app.label}</span>
     `;
     shortcut.addEventListener('click', () => openWindowsApp(app));
