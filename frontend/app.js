@@ -1,24 +1,24 @@
 const androidApps = [
-  { name: 'Phone', icon: '📞', accent: '#2d6df6' },
-  { name: 'Messages', icon: '💬', accent: '#16c8b7' },
-  { name: 'Camera', icon: '📷', accent: '#fbbf24' },
-  { name: 'Gallery', icon: '🖼️', accent: '#f97316' },
-  { name: 'Maps', icon: '🗺️', accent: '#34d399' },
-  { name: 'Music', icon: '🎵', accent: '#ec4899' },
-  { name: 'Store', icon: '🛍️', accent: '#a78bfa' },
-  { name: 'Settings', icon: '⚙️', accent: '#94a3b8' },
+  { name: 'Phone', icon: 'P', accent: '#6e8bc3' },
+  { name: 'Messages', icon: 'M', accent: '#c28354' },
+  { name: 'Camera', icon: 'C', accent: '#d3a15b' },
+  { name: 'Gallery', icon: 'G', accent: '#b56d4b' },
+  { name: 'Maps', icon: 'A', accent: '#7aa06a' },
+  { name: 'Music', icon: 'S', accent: '#946a86' },
+  { name: 'Store', icon: 'O', accent: '#4a7d86' },
+  { name: 'Settings', icon: 'S', accent: '#6f6e74' },
 ];
 
 const windowsApps = [
-  { name: 'Notepad.exe', label: 'Notepad', icon: '📝' },
-  { name: 'Calc.exe', label: 'Calculator', icon: '🧮' },
-  { name: 'Explorer.exe', label: 'Explorer', icon: '📁' },
-  { name: 'Browser.exe', label: 'Browser', icon: '🌐' },
+  { name: 'Notepad.exe', label: 'Notepad', icon: 'N' },
+  { name: 'Calc.exe', label: 'Calculator', icon: 'C' },
+  { name: 'Explorer.exe', label: 'Explorer', icon: 'E' },
+  { name: 'Browser.exe', label: 'Browser', icon: 'B' },
 ];
 
 const state = {
   mode: 'android',
-  openWindows: [],
+  openWindows: []
 };
 
 const osRoot = document.getElementById('osRoot');
@@ -80,17 +80,15 @@ function runAndroidApp(appName) {
   banner.style.bottom = '110px';
   banner.style.padding = '12px 16px';
   banner.style.borderRadius = '12px';
-  banner.style.background = 'rgba(15, 23, 42, 0.8)';
-  banner.style.border = '1px solid rgba(255,255,255,0.14)';
-  banner.style.boxShadow = '0 12px 28px rgba(0,0,0,0.24)';
-  banner.style.color = 'white';
+  banner.style.background = 'rgba(36, 28, 20, 0.8)';
+  banner.style.border = '1px solid rgba(255,255,255,0.12)';
+  banner.style.boxShadow = '0 12px 28px rgba(0,0,0,0.2)';
+  banner.style.color = '#fff';
   banner.style.zIndex = '20';
   banner.textContent = `${appName} launched`;
   document.body.appendChild(banner);
 
-  setTimeout(() => {
-    banner.remove();
-  }, 900);
+  setTimeout(() => banner.remove(), 900);
 }
 
 function openWindowsApp(app) {
@@ -113,7 +111,7 @@ function openWindowsApp(app) {
     </div>
     <div class="window-body">
       <p>Running ${app.name}</p>
-      <p>This is a Windows-style replica that can launch .exe-like programs inside Camel OS.</p>
+      <p>This Windows shell can run executable-style app windows.</p>
       <button class="window-button" type="button">Open</button>
     </div>
   `;
@@ -135,6 +133,7 @@ function openWindowsApp(app) {
 function setMode(mode) {
   state.mode = mode;
   const isAndroid = mode === 'android';
+
   osRoot.classList.toggle('android-mode', isAndroid);
   osRoot.classList.toggle('windows-mode', !isAndroid);
 
@@ -152,9 +151,7 @@ modeSwitchButton.addEventListener('click', () => {
   setMode(nextMode);
 });
 
-startButton.addEventListener('click', () => {
-  startMenu.classList.toggle('hidden');
-});
+startButton.addEventListener('click', () => startMenu.classList.toggle('hidden'));
 
 document.querySelectorAll('.start-menu-item').forEach((item) => {
   item.addEventListener('click', () => {
