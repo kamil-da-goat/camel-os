@@ -1,20 +1,25 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -ffreestanding -fno-pic -m32 -O2
 AS = nasm
-AFLAGS = -f elf32
+AFLAGS = -f bin
 
-all: build/camel.elf
+all: camel.img
 
-build:
-	mkdir -p build
+boot/boot.bin: boot/boot.asm
+	$(AS) -f bin -o $@ $<
 
-build/camel.elf: build kernel/kernel.o
-	ld -m elf_i386 -o $@ kernel/kernel.o
+kernel/kernel.bin: kernel/kernel_entry.asm
+	$(AS) -f bin -o $@ $<
 
-kernel/kernel.o: kernel/kernel.c include/types.h | build
-	$(CC) $(CFLAGS) -c -o $@ kernel/kernel.c
+camel.img: boot/boot.bin kernel/kernel.bin
+	dd if=/dev/zero of=$@ bs=512 count=2880 status=none
+	dd if=boot/boot.bin of=$@ conv=notrunc bs=512 count=1 status=none
+	dd if=kernel/kernel.bin of=$@ conv=notrunc seek=1 bs=512 status=none
+
+run: camel.img
+	qemu-system-i386 -drive format=raw,file=camel.img
 
 clean:
-	rm -rf build
+	rm -f boot/boot.bin kernel/kernel.bin camel.img
 
-.PHONY: all clean
+.PHONY: all clean run

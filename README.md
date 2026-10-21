@@ -1,57 +1,47 @@
 # Camel OS
 
-Camel OS is the concept for a hybrid operating system that can switch between two full interfaces:
+Camel OS is a hybrid operating system concept that combines a mobile Android-style environment with a Windows-style desktop shell.
 
-- Android mode: a full mobile-style environment for touch-first use
-- Windows mode: a desktop environment that can run Windows-style executable apps
+This repository now includes a realistic bootable skeleton for a minimal x86 system, plus the frontend prototype for the user experience.
 
-This repo contains both:
+## Structure
 
-- a web prototype for the interface preview in `frontend/`
-- a low-level OS skeleton for the actual platform design in `boot/`, `kernel/`, and `include/`
+- `frontend/` — browser-based UI concept for the Android/Windows switch
+- `boot/boot.asm` — boot sector that loads a kernel image from disk and enters protected mode
+- `kernel/kernel_entry.asm` — minimal 32-bit kernel stub for VGA output
+- `Makefile` — builds a raw disk image for QEMU
 
-## Folder layout
+## Build the boot image
 
-- `frontend/` — interactive web preview of the dual-mode UI
-- `boot/boot.asm` — x86 boot sector skeleton
-- `kernel/` — kernel entry and terminal stubs
-- `include/types.h` — base type definitions
-- `Makefile` — minimal build scaffold
+```bash
+make
+```
 
-## The real plan
+This generates a raw disk image named `camel.img`.
 
-The actual system should eventually include:
+## Run in QEMU
 
-- boot sector / bootloader
-- kernel initialization
-- protected mode startup
-- memory manager
-- filesystem and drivers
-- Android runtime layer
-- Windows compatibility layer
-- app launcher and mode switching
+```bash
+make run
+```
 
-## Run the web preview
+This launches QEMU and boots the current Camel OS skeleton.
+
+## Notes
+
+This is still a minimal bootable starting point, not a full Android/Windows operating system. It provides the base boot flow required for a real OS project.
+
+## Browser preview
+
+The frontend can also be opened in a browser:
 
 ```bash
 cd /path/to/camel-os
 python3 -m http.server 8000
 ```
 
-Open:
+Then open:
 
 ```text
 http://localhost:8000
 ```
-
-## Build the low-level skeleton
-
-```bash
-make
-```
-
-This is intentionally a minimal starting point, not a complete OS yet.
-
-## Notes
-
-The frontend is just a proof-of-concept interface. The real Camel OS is the low-level system design that follows this boot/kernel skeleton.
